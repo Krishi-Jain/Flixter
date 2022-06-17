@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSArray *filteredData;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -23,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.activityIndicator startAnimating];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -71,6 +73,7 @@
                [self.tableView reloadData];
            }
            [self.refreshControl endRefreshing];
+           [self.activityIndicator stopAnimating];
        }];
     [task resume];
 }
