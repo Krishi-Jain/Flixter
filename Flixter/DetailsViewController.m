@@ -23,10 +23,11 @@
     NSString *fullPosterUrl = [baseURLString stringByAppendingString:_movie[@"poster_path"]];
     NSURL *posterUrl = [NSURL URLWithString:fullPosterUrl];
     
-//    NSString *fullPosterUrl = [baseURLString stringByAppendingString:_movie[@"backdrop_path"]];
-//    NSURL *posterUrl = [NSURL URLWithString:fullPosterUrl];
+    NSString *backdropUrl = [baseURLString stringByAppendingString:_movie[@"backdrop_path"]];
+    NSURL *backposterUrl = [NSURL URLWithString:backdropUrl];
 
     [self.posterImageView setImageWithURL:posterUrl];
+    [self.backgroundImageView setImageWithURL:backposterUrl];
 }
 
 /*
