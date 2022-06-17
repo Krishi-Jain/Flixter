@@ -21,12 +21,10 @@
     self.SynopsisLabel.text = self.movie[@"overview"];
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
 //    NSString *posterURLString = movie[@"poster_path"];
-//    NSString *fullPosterURLString = [NSString stringWithFormat:@"%@%@", baseURLString, posterURLString];
-//    NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-//
-//    [movie.posterView setImageWithURL:posterURL];
-//
-//    return movie;
+    NSString *fullPosterUrl = [baseURLString stringByAppendingString:_movie[@"poster_path"]];
+    NSURL *posterUrl = [NSURL URLWithString:fullPosterUrl];
+
+    [self.posterImageView setImageWithURL:posterUrl];
 }
 
 /*
