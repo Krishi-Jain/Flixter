@@ -156,7 +156,7 @@
         <!--Movies-->
         <scene sceneID="abb-M9-4N6">
             <objects>
-                <viewController id="SA1-jC-zTk" sceneMemberID="viewController">
+                <viewController id="SA1-jC-zTk" customClass="GridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4jf-R8-3g1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,6 +196,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Movies" id="x3f-AR-tod"/>
+                    <connections>
+                        <outlet property="collectionView" destination="aZp-3l-GWW" id="eGj-ut-bKQ"/>
+                        <outlet property="flowLayout" destination="fpi-73-fWu" id="JAW-Ke-812"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0m3-GR-mgK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
