@@ -26,8 +26,8 @@ static NSString * const reuseIdentifier = @"Cell";
     // Do any additional setup after loading the view.
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    [self.fetchMovies];
-    [self.collectionView registerClass:[UICollectionViewCell] forCellWithReuseIdentifier:reuseIdentifier];
+    [self fetchMovies];
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
 - (void)fetchMovies{
@@ -59,7 +59,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
     NSDictionary *movie = self.movies[indexPath.row];
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
