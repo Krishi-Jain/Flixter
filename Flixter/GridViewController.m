@@ -19,7 +19,7 @@
 
 @implementation GridViewController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"GridCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +27,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self fetchMovies];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    //[self.collectionView registerClass:[GridCell class] forCellWithReuseIdentifier:reuseIdentifier];
 }
 
 - (void)fetchMovies{
@@ -59,17 +60,41 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionCell" forIndexPath:indexPath];
+    GridCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     NSDictionary *movie = self.movies[indexPath.row];
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
-    cell.cellView.image = nil;
-    [cell.cellView setImageWithURL:posterURL];
+    cell.imageView.image = nil;
+    [cell.imageView setImageWithURL:posterURL];
     return cell;
 }
 #pragma mark <UICollectionViewDelegate>
+
+- (void)viewDidLayoutSubviews {
+   [super viewDidLayoutSubviews];
+
+    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.flowLayout.minimumLineSpacing = 0;
+    self.flowLayout.minimumInteritemSpacing = 0;
+    self.flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 10);
+}
+
+// MARK: UICollectionViewDelegateFlowLayout methods
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    int totalwidth = self.collectionView.bounds.size.width;
+    int numberOfCellsPerRow = 3;
+    int oddEven = indexPath.row / numberOfCellsPerRow % 2;
+    int dimensions = (CGFloat)(totalwidth / numberOfCellsPerRow);
+    if (oddEven == 0) {
+        return CGSizeMake(dimensions, dimensions);
+    } else {
+        return CGSizeMake(dimensions, dimensions / 2);
+    }
+}
+
+@end
 
 /*
 #pragma mark - Navigation
@@ -81,4 +106,4 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 */
 
-@end
+
