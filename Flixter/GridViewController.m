@@ -85,13 +85,8 @@ static NSString * const reuseIdentifier = @"GridCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     int totalwidth = self.collectionView.bounds.size.width;
     int numberOfCellsPerRow = 3;
-    int oddEven = indexPath.row / numberOfCellsPerRow % 2;
     int dimensions = (CGFloat)(totalwidth / numberOfCellsPerRow);
-    if (oddEven == 0) {
-        return CGSizeMake(dimensions, dimensions);
-    } else {
-        return CGSizeMake(dimensions, dimensions / 2);
-    }
+    return CGSizeMake(dimensions, dimensions);
 }
 
 @end
