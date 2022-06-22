@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
 #import "Movie.h"
+#import "MovieApiManager.h"
 
 @interface MovieViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -64,13 +65,14 @@
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
                
                //[Movie moviesWithDictionaries:dataDictionary];
+               
                // new is an alternative syntax to calling alloc init.
                MovieApiManager *manager = [MovieApiManager new];
                [manager fetchNowPlaying:^(NSArray *movies, NSError *error) {
                    self.movies = movies;
                    [self.tableView reloadData];
                }];
-               }
+
 
                // TODO: Get the array of movies
                NSLog(@"%@", dataDictionary);// log an object with the %@ formatter.

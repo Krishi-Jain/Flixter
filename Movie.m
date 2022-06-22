@@ -20,7 +20,7 @@
  return self;
 }
 
-+ (NSArray *)moviesWithDictionaries:(NSArray *)dictionaries {
++ (NSArray <Movie *> *)moviesWithDictionaries:(NSArray *)dictionaries {
     NSMutableArray *movies = [[NSMutableArray alloc] init];
    // Implement this function
     for (NSDictionary *dictionary in dictionaries) {
@@ -29,6 +29,6 @@
 
         [movies addObject:movie];
     }
-    return movies;
+    return movies.copy;
 }
 @end

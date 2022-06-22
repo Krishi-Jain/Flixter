@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MovieApiManager : NSObject
+- (void)fetchNowPlaying:(void(^)(NSArray *movies, NSError *error))completion;
 
 @end
 
