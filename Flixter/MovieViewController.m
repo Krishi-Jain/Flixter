@@ -9,11 +9,12 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
+#import "Movie.h"
 
 @interface MovieViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSArray *movies;
+@property (nonatomic, strong) NSMutableArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSArray *filteredData;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -61,6 +62,15 @@
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+               
+               //[Movie moviesWithDictionaries:dataDictionary];
+               // new is an alternative syntax to calling alloc init.
+               MovieApiManager *manager = [MovieApiManager new];
+               [manager fetchNowPlaying:^(NSArray *movies, NSError *error) {
+                   self.movies = movies;
+                   [self.tableView reloadData];
+               }];
+               }
 
                // TODO: Get the array of movies
                NSLog(@"%@", dataDictionary);// log an object with the %@ formatter.
@@ -88,6 +98,7 @@
     return self.movies.count;
 }
 
+/*
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
     (NSIndexPath *)indexPath {
     MovieCell *cell = [tableView
@@ -105,6 +116,13 @@
     cell.posterView.image = nil;
     [cell.posterView setImageWithURL:posterURL];
     
+    return cell;
+}
+*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    cell.movie = self.movies[indexPath.row];
     return cell;
 }
 
